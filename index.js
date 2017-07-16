@@ -1,5 +1,5 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser') // 把純字串轉成JSON
 
 const PORT = process.env.PORT || 3000
 
@@ -50,3 +50,11 @@ app.post('/telegram', function (req, res) {
 app.listen(PORT, function () {
   console.log('Example app listening on port 3000!')
 })
+
+app.get('/webhook', function (req, res) {
+    if (req.query['hub.verify_token'] === 'Kw783537') {
+      res.send(req.query['hub.challenge']);
+    } else {
+      res.send('Error, wrong validation token');    
+    }
+  });
