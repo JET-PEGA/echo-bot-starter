@@ -10,6 +10,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+app.get('/facebook', function (req, res) {
+  console.log('query:', req.query);
+  console.log('body:', req.body);
+   if (req.query['hub.verify_token'] === 'Kw783537') {
+      res.send(req.query['hub.challenge']);
+    } else {
+      res.send('Error, wrong validation token');    
+    }
+})
+
 app.post('/facebook', function (req, res) {
   console.log('query:', req.query);
   console.log('body:', req.body);
@@ -44,11 +54,3 @@ app.post('/telegram', function (req, res) {
 app.listen(PORT, function () {
   console.log('Example app listening on port 3000!')
 })
-
-app.get('/facebook', function (req, res) {
-    if (req.query['hub.verify_token'] === 'Kw783537') {
-      res.send(req.query['hub.challenge']);
-    } else {
-      res.send('Error, wrong validation token');    
-    }
-  });
