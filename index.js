@@ -10,12 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/facebook', function (req, res) {
-  console.log('query:', req.query);
-  console.log('body:', req.body);
-  res.send('hello facebook from GET');
-})
-
 app.post('/facebook', function (req, res) {
   console.log('query:', req.query);
   console.log('body:', req.body);
@@ -51,7 +45,7 @@ app.listen(PORT, function () {
   console.log('Example app listening on port 3000!')
 })
 
-app.get('/webhook', function (req, res) {
+app.get('/facebook', function (req, res) {
     if (req.query['hub.verify_token'] === 'Kw783537') {
       res.send(req.query['hub.challenge']);
     } else {
